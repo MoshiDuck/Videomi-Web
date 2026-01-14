@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Video.js – Lecture locale</title>
+  <link href="https://vjs.zencdn.net/8.20.0/video-js.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .video-container {
+      max-width: 800px;
+      margin: 20px auto;
+    }
+    input[type="file"] {
+      display: block;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Video.js – Lecture vidéo locale</h1>
+  <input type="file" id="filePicker" accept="video/*,audio/*">
+
+  <div class="video-container">
+    <video
+      id="my-video"
+      class="video-js vjs-default-skin"
+      controls
+      preload="auto"
+      width="800"
+      height="450"
+      data-setup="{}"
+    >
+      <p class="vjs-no-js">
+        Votre navigateur ne supporte pas la lecture HTML5. 
+      </p>
+    </video>
+  </div>
+
+  <script src="https://vjs.zencdn.net/8.20.0/video.min.js"></script>
+  <script>
+    const filePicker = document.getElementById('filePicker');
+    const player = videojs('my-video');
+
+    filePicker.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Crée une URL locale pour le fichier choisi
+      const fileURL = URL.createObjectURL(file);
+
+      // Mets à jour la source de Video.js
+      player.src({ src: fileURL, type: file.type });
+      player.load();
+      player.play().catch(() => {
+        console.warn("Lecture automatique bloquée, cliquez sur play.");
+      });
+    });
+  </script>
+</body>
+</html>
