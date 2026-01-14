@@ -52,7 +52,7 @@
       // Crée une URL locale pour le fichier choisi
       const fileURL = URL.createObjectURL(file);
 
-      // Mets à jour la source de Video.js
+      // Mets à jour la source de Video.js d
       player.src({ src: fileURL, type: file.type });
       player.load();
       player.play().catch(() => {
